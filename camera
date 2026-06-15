@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>click this</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: white;
+      font-family: sans-serif;
+    }
+    button {
+      padding: 16px 24px;
+      font-size: 20px;
+      border: none;
+      border-radius: 12px;
+      background: #111;
+      color: white;
+    }
+    video {
+      margin-top: 20px;
+      width: 90%;
+      max-width: 360px;
+      border-radius: 12px;
+      display: none;
+    }
+    .wrap {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <button id="btn">카메라 열기</button>
+    <br />
+    <video id="video" autoplay playsinline></video>
+  </div>
+
+  <script>
+    const btn = document.getElementById('btn');
+    const video = document.getElementById('video');
+
+    btn.addEventListener('click', async () => {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        video.srcObject = stream;
+        video.style.display = 'block';
+        btn.textContent = '카메라 실행 중';
+      } catch (err) {
+        alert('카메라 권한이 필요해요.');
+      }
+    });
+  </script>
+</body>
+</html>
